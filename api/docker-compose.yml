@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+    service_vitaminaweb:
+        build:
+            args:
+                user: luanramos
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: laravel-app
+        restart: unless-stopped
+        # command: "php artisan migrate --seed"
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis_vitaminaweb
+        networks:
+            - service_vitaminaweb_network
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - 8000:80
+            - 443:443
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - service_vitaminaweb_network
+    db_service_vitaminaweb:
+        image: mysql
+        restart: unless-stopped
+        expose:
+            - 3306
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+        volumes:
+            - /var/lib/mysql
+        ports:
+            - 3308:3306
+        networks:
+            - service_vitaminaweb_network
+    redis_vitaminaweb:
+        image: redis:latest
+        networks:
+            - service_vitaminaweb_network
+networks:
+    service_vitaminaweb_network:
+        driver: bridge
