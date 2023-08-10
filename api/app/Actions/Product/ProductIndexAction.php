@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Actions\Client;
+namespace App\Actions\Product;
 
-use App\Http\Requests\Client\ClientIndexRequest;
-use App\Repositories\ClientRepository;
+use App\Http\Requests\Product\ProductIndexRequest;
+use App\Repositories\ProductRepository;
 
-class ClientIndexAction
+class ProductIndexAction
 {
-    protected $clientRepository;
+    protected $productRepository;
 
-    public function __construct(ClientRepository $clientRepository)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->clientRepository = $clientRepository;
+        $this->productRepository = $productRepository;
     }
 
-    public function exec(ClientIndexRequest $request)
+    public function exec(ProductIndexRequest $request)
     {
-        return $this->clientRepository->getAll($request->validated());
+        return $this->productRepository->getAll($request->validated());
     }
 }

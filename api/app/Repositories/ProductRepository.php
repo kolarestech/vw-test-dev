@@ -2,26 +2,26 @@
 
 namespace App\Repositories;
 
-use App\Models\Client;
+use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
 
-class ClientRepository
+class ProductRepository
 {
     /**
      * model instance
      *
-     * @var Client $model
+     * @var Product $model
      */
-    protected Client $model;
+    protected Product $model;
 
     /**
      * cache module
      *
      * @var const CACHE_MODULE
      */
-    const CACHE_MODULE = 'clients';
+    const CACHE_MODULE = 'products';
 
-    function __construct(Client $model)
+    function __construct(Product $model)
     {
         $this->model = $model;
     }
@@ -33,7 +33,7 @@ class ClientRepository
      *
      * @return object $model
      */
-    public function getAll(array $validatedClientData): object
+    public function getAll(array $validatedProductData): object
     {
         Cache::forget(self::CACHE_MODULE);
 
@@ -49,11 +49,11 @@ class ClientRepository
      *
      * @return object $model
      */
-    public function store(array $validatedClientData): object
+    public function store(array $validatedProductData): object
     {
         Cache::forget(self::CACHE_MODULE);
 
-        $model = $this->model->create($validatedClientData);
+        $model = $this->model->create($validatedProductData);
 
         return $model;
     }
