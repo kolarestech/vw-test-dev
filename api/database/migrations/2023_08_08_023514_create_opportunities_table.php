@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('opportunities', function (Blueprint $table) {
             $table->id();
-            $table->uuid("uuid");
+            $table->uuid("uuid")->index();
+            $table->uuid("client_identify")->index();
+            $table->uuid("user_identify")->index();
             $table->string("name");
             $table->decimal("value", 12, 2);
-            $table->enum("status", \App\Enums\OpportunityStatusEnum::getValues())->default(\App\Enums\OpportunityStatusEnum::WAITING());
+            $table->enum("status", \App\Enums\OpportunityStatusEnum::getValues())
+                ->default(\App\Enums\OpportunityStatusEnum::WAITING());
             $table->timestamps();
+
+            $table->foreign('user_identify')->references('uuid')->on('users');
         });
     }
 

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class OpportunityFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "uuid" => fake()->uuid(),
+            "name" => fake()->word(),
+            "value" => fake()->numberBetween(30000, 250000),
+            "client_identify" => Client::all()->random(1)->first()->uuid,
+            "user_identify" => User::all()->random(1)->first()->uuid,
         ];
     }
 }

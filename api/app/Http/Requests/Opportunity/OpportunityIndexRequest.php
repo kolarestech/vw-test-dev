@@ -4,7 +4,7 @@ namespace App\Http\Requests\Opportunity;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OpportunityStoreRequest extends FormRequest
+class OpportunityIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,7 @@ class OpportunityStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required"],
-            "value" => ["required", "decimal:0,2"],
-            "client_identify" => ["required", "exists:clients,uuid"],
-            "user_identify" => ["required", "exists:users,uuid"]
+            //
         ];
     }
 }

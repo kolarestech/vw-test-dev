@@ -2,26 +2,26 @@
 
 namespace App\Repositories;
 
-use App\Models\Opportunity;
+use App\Models\Client;
 use Illuminate\Support\Facades\Cache;
 
-class OpportunityRepository
+class ClientRepository
 {
     /**
      * model instance
      *
-     * @var Opportunity $model
+     * @var Client $model
      */
-    protected Opportunity $model;
+    protected Client $model;
 
     /**
      * cache module
      *
      * @var const CACHE_MODULE
      */
-    const CACHE_MODULE = 'opportunities';
+    const CACHE_MODULE = 'clients';
 
-    function __construct(Opportunity $model)
+    function __construct(Client $model)
     {
         $this->model = $model;
     }
@@ -37,7 +37,7 @@ class OpportunityRepository
     {
         Cache::forget(self::CACHE_MODULE);
 
-        $model = $this->model->with("client", "seller", "products")->get();
+        $model = $this->model->all();
 
         return $model;
     }
@@ -49,11 +49,11 @@ class OpportunityRepository
      *
      * @return object $model
      */
-    public function store(array $validatedOpportunityData): object
+    public function store(array $validatedClientData): object
     {
         Cache::forget(self::CACHE_MODULE);
 
-        $model = $this->model->create($validatedOpportunityData);
+        $model = $this->model->create($validatedClientData);
 
         return $model;
     }
