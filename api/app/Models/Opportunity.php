@@ -11,7 +11,12 @@ class Opportunity extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name", "value", "status", "uuid"
+        "uuid",
+        "client_identify",
+        "user_identify",
+        "name",
+        "value",
+        "status"
     ];
 
     protected $append = [
@@ -21,5 +26,21 @@ class Opportunity extends Model
     public function getStatusTextAttribute()
     {
         return $this->status;
+    }
+
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'uuid', 'client_identify');
+    }
+
+    public function seller()
+    {
+        return $this->hasOne(User::class, 'uuid', 'user_identify');
+    }
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Product::class,  'opportunity_product',
+            'opportunity_identify', 'product_identify', 'uuid', 'uuid');
     }
 }
