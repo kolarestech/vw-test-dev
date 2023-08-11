@@ -6,7 +6,7 @@ API de oportunidades de vendas
 
 ### clone
 ``
-git clone ...
+git@github.com:kolarestech/vw-test-dev.git
 ``
 
 ### instalacao
