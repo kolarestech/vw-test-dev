@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Opportunity\OpportunityIndexRequest;
 use App\Http\Resources\Opportunity\OpportunityIndexResource;
 
-
 class IndexController extends Controller
 {
     /**

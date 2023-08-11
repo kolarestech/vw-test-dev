@@ -59,6 +59,24 @@ class OpportunityRepository
     }
 
     /**
+     * insert new instance os this object on database
+     *
+     * @param array $data
+     *
+     * @return object $model
+     */
+    public function update(string $identify, array $validatedOpportunityData): object
+    {
+        Cache::forget(self::CACHE_MODULE);
+
+        $model = $this->getByIdentify($identify);
+
+        $model->update($validatedOpportunityData);
+
+        return $model;
+    }
+
+    /**
      * get one instance of this object and its relationships
      *
      * @param string $identify

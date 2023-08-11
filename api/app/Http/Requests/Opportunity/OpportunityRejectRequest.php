@@ -22,7 +22,7 @@ class OpportunityRejectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "opportunity_identify" => ["required", "exists:opportunities,uuid"]
         ];
     }
 }
