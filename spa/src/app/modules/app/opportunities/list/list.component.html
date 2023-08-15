@@ -1,0 +1,103 @@
+
+<a href="app/create" class="btn btn-primary float-end">Nova oportunidade</a> <br><br>
+<div>
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>Descricao</th>
+        <th>Cliente</th>
+        <th>Vendedor</th>
+        <th>Produtos</th>
+        <th>Status</th>
+        <th>Valor</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opportunity of opportunities">
+        <td>{{opportunity.name}}</td>
+        <td>
+          {{opportunity.client.name}}
+        </td>
+        <td>
+          {{opportunity.seller.name}} <br>
+        </td>
+        <td class="text-center">
+          <button type="button" (click)="openProducts(products, opportunity.products)" id="bt-modal-products" class="btn btn-sm btn-link">
+            {{opportunity.products.length}}
+          </button>
+        </td>
+        <td class="text-center">
+          <span *ngIf="opportunity.status == 'WAITING'" class="badge bg-warning">{{opportunity.status}}</span>
+          <span *ngIf="opportunity.status == 'APPROVED'" class="badge bg-success">{{opportunity.status}}</span>
+          <span *ngIf="opportunity.status == 'REJECTED'" class="badge bg-danger">{{opportunity.status}}</span>
+        </td>
+        <td class="text-end">{{opportunity.value | currency: 'R$ '}}</td>
+        <td class="text-end">
+          <button [disabled]="opportunity.status != 'WAITING'" (click)="openApprove(approve, opportunity.identify)" class="btn btn-success btn-sm">&check;</button> &nbsp;
+          <button [disabled]="opportunity.status != 'WAITING'" (click)="openReject(reject, opportunity.identify)" class="btn btn-danger btn-sm">&times;</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #products let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Produtos</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Identificacao</th>
+              <th>Produto</th>
+              <th>Preco</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of productsInEvidence">
+              <td>{{product.uuid}}</td>
+              <td>{{product.name}}</td>
+              <td class="text-end">{{product.price | currency: 'R$ '}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <h3 class="text-end">
+      {{totalProductsPrice.toString() | currency: 'R$ '}}
+    </h3>
+  </div>
+</ng-template>
+
+<ng-template #approve let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirma Aprovacao?</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Deseja realmente aprovar esta oportunidade?</p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="approveOpportunity()" class="btn btn-success">Aprovar Oportunidade</button>
+  </div>
+</ng-template>
+
+<ng-template #reject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirma Rejeicao?</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Deseja realmente rejeitar esta oportunidade?</p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="rejectOpportunity()" class="btn btn-danger">Rejeitar Oportunidade</button>
+  </div>
+</ng-template>

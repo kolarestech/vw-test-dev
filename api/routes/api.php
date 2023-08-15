@@ -24,7 +24,7 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->prefix('opportunity')->group(function () {
     Route::get('', [\App\Http\Controllers\Api\Opportunities\IndexController::class, 'index']);
-    Route::post('store', [\App\Http\Controllers\Api\Opportunities\StoreController::class, 'store']);
+    Route::post('', [\App\Http\Controllers\Api\Opportunities\StoreController::class, 'store']);
     Route::put('reject', [\App\Http\Controllers\Api\Opportunities\RejectController::class, 'reject']);
     Route::put('approve', [\App\Http\Controllers\Api\Opportunities\ApproveController::class, 'approve']);
 });

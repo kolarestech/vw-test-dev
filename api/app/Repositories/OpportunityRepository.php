@@ -89,4 +89,18 @@ class OpportunityRepository
             return $this->model->where('uuid', $identify)->firstOrFail();
         });
     }
+
+        /**
+     * get one instance of this object and its relationships
+     *
+     * @param string $identify
+     * @param array $products
+     * @return object $model
+     */
+    public function saveProductsOnOpportunity(string $identify, array $products): void
+    {
+        foreach($products as $product) {
+            
+        }
+    }
 }

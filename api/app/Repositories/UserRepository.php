@@ -63,10 +63,10 @@ class UserRepository
      *
      * @return object $model
      */
-    public function getByEmail(string $mail): object
+    public function getByEmail(string $mail): object | null
     {
         return Cache::rememberForever(self::CACHE_MODULE.$mail, function () use ($mail) {
-            return $this->model->where('email', $mail)->firstOrFail();
+            return $this->model->where('email', $mail)->first();
         });
     }
 

@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row p-3">
+    <input type="text" placeholder="Descricao da oportunidade" [(ngModel)]="opportunity.name" class="form form-control col-12">
+  </div>
+  <div class="row p-3">
+    <input type="number" placeholder="Valor da oportunidade" [(ngModel)]="opportunity.value" class="form form-control col-12">
+  </div>
+  <div class="row p-1">
+    <div class="col-6">
+      <ng-select
+        [items]="products"
+        bindLabel="name"
+        placeholder="Selecionar Produtos"
+        appendTo="body"
+        [multiple]="true"
+        [(ngModel)]="opportunity.products">
+      </ng-select>
+    </div>
+    <div class="col-6">
+      <ng-select
+        [items]="clients"
+        bindLabel="name"
+        placeholder="Selecionar Cliente"
+        appendTo="body"
+        [multiple]="false"
+        [(ngModel)]="opportunity.client_identify">
+      </ng-select>
+    </div>
+  </div>
+  <div class="row p-3">
+    <button class="btn btn-success" (click)="store()">Salvar</button>
+  </div>
+</div>
+

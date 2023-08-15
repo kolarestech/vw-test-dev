@@ -1,6 +1,6 @@
 ## Vitaminaweb
 
-API de oportunidades de vendas
+Oportunidades de vendas
 
 ## Instrucoes de instalacao
 

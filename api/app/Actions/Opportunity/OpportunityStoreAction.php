@@ -16,6 +16,10 @@ class OpportunityStoreAction
 
     public function exec(OpportunityStoreRequest $request)
     {
-        return $this->opportunityRepository->store($request->validated());
+        $opportunity = $this->opportunityRepository->store($request->validated());
+
+        $opportunity->products()->attach($request->input('products'));
+
+        return $opportunity;
     }
 }
