@@ -14,6 +14,11 @@ git@github.com:kolarestech/vw-test-dev.git
 ./bin/install
 ``
 
+### acesso
+``
+http://localhost:4200
+``
+
 ## Documentation API
 
 ``
